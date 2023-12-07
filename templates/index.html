@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Humanitarian AID Foundation | HAF</title>
+    <link rel="icon" href="https://icons.getbootstrap.com/assets/icons/globe2.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <style>
+    body{
+        background: black;
+        color: white;
+    }
+    #load{
+        background-image: linear-gradient(to right, cyan, blue);
+        height: 3px;
+        width: 100%;
+        position: absolute;
+        top: 55px;
+        left: 0;
+    }
+    #main{
+        position: absolute;
+        top: 10%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 80%;
+        overflow: auto;
+    }
+    #bottom{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 8%;
+        display: grid;
+        place-items: center;
+        color: white;
+    }
+    #bottom-sec{
+        background-image: linear-gradient(to right, cyan, blue);
+        height: 3px;
+        width: 100%;
+        position: absolute;
+        bottom: 8%;
+        left: 0;
+    }
+    .btn-filled{
+        background-image: linear-gradient(to right, rgb(153,0,255), blue);
+        color: white;
+        width: 100%;
+        border: 3px solid white;
+    }
+    #health-chart{
+        width: 100%;
+        height: 250px;
+        background: rgb(25, 25, 25);
+        border-radius: 10px;
+        border: 1px solid white;
+    }
+  </style>
+  <body data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="" style="color: cyan;">
+            <i class="bi bi-globe2"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-globe2" viewBox="0 0 16 16">
+                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855-.143.268-.276.56-.395.872.705.157 1.472.257 2.282.287zM4.249 3.539c.142-.384.304-.744.481-1.078a6.7 6.7 0 0 1 .597-.933A7.01 7.01 0 0 0 3.051 3.05c.362.184.763.349 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9.124 9.124 0 0 1-1.565-.667A6.964 6.964 0 0 0 1.018 7.5h2.49zm1.4-2.741a12.344 12.344 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332M8.5 5.09V7.5h2.99a12.342 12.342 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.51 8.5c.035.987.176 1.914.399 2.741A13.612 13.612 0 0 1 7.5 10.91V8.5zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741zm-3.282 3.696c.12.312.252.604.395.872.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.11 2.276a6.696 6.696 0 0 1-.598-.933 8.853 8.853 0 0 1-.481-1.079 8.38 8.38 0 0 0-1.198.49 7.01 7.01 0 0 0 2.276 1.522zm-1.383-2.964A13.36 13.36 0 0 1 3.508 8.5h-2.49a6.963 6.963 0 0 0 1.362 3.675c.47-.258.995-.482 1.565-.667zm6.728 2.964a7.009 7.009 0 0 0 2.275-1.521 8.376 8.376 0 0 0-1.197-.49 8.853 8.853 0 0 1-.481 1.078 6.688 6.688 0 0 1-.597.933zM8.5 11.909v3.014c.67-.204 1.335-.82 1.887-1.855.143-.268.276-.56.395-.872A12.63 12.63 0 0 0 8.5 11.91zm3.555-.401c.57.185 1.095.409 1.565.667A6.963 6.963 0 0 0 14.982 8.5h-2.49a13.36 13.36 0 0 1-.437 3.008zM14.982 7.5a6.963 6.963 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008zM11.27 2.461c.177.334.339.694.482 1.078a8.368 8.368 0 0 0 1.196-.49 7.01 7.01 0 0 0-2.275-1.52c.218.283.418.597.597.932zm-.488 1.343a7.765 7.765 0 0 0-.395-.872C9.835 1.897 9.17 1.282 8.5 1.077V4.09c.81-.03 1.577-.13 2.282-.287z"/>
+            </svg>
+            <b>HAF</b>
+          </a>
+          <div>
+            <button class="btn" onclick="notify()">
+                <i class="bi bi-bell"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+                </svg>
+            </button>
+            <button class="btn" onclick="account()">
+                <i class="bi bi-person-circle"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+            </button>
+          </div>
+        </div>
+    </nav>
+    <div id="load"></div>
+    <div id="main">
+        <div style="display: grid; place-items: center; height: 100%; width: 100%;">
+            <i class="bi bi-globe2"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-globe2" viewBox="0 0 16 16">
+                <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m7.5-6.923c-.67.204-1.335.82-1.887 1.855-.143.268-.276.56-.395.872.705.157 1.472.257 2.282.287zM4.249 3.539c.142-.384.304-.744.481-1.078a6.7 6.7 0 0 1 .597-.933A7.01 7.01 0 0 0 3.051 3.05c.362.184.763.349 1.198.49zM3.509 7.5c.036-1.07.188-2.087.436-3.008a9.124 9.124 0 0 1-1.565-.667A6.964 6.964 0 0 0 1.018 7.5h2.49zm1.4-2.741a12.344 12.344 0 0 0-.4 2.741H7.5V5.091c-.91-.03-1.783-.145-2.591-.332M8.5 5.09V7.5h2.99a12.342 12.342 0 0 0-.399-2.741c-.808.187-1.681.301-2.591.332zM4.51 8.5c.035.987.176 1.914.399 2.741A13.612 13.612 0 0 1 7.5 10.91V8.5zm3.99 0v2.409c.91.03 1.783.145 2.591.332.223-.827.364-1.754.4-2.741zm-3.282 3.696c.12.312.252.604.395.872.552 1.035 1.218 1.65 1.887 1.855V11.91c-.81.03-1.577.13-2.282.287zm.11 2.276a6.696 6.696 0 0 1-.598-.933 8.853 8.853 0 0 1-.481-1.079 8.38 8.38 0 0 0-1.198.49 7.01 7.01 0 0 0 2.276 1.522zm-1.383-2.964A13.36 13.36 0 0 1 3.508 8.5h-2.49a6.963 6.963 0 0 0 1.362 3.675c.47-.258.995-.482 1.565-.667zm6.728 2.964a7.009 7.009 0 0 0 2.275-1.521 8.376 8.376 0 0 0-1.197-.49 8.853 8.853 0 0 1-.481 1.078 6.688 6.688 0 0 1-.597.933zM8.5 11.909v3.014c.67-.204 1.335-.82 1.887-1.855.143-.268.276-.56.395-.872A12.63 12.63 0 0 0 8.5 11.91zm3.555-.401c.57.185 1.095.409 1.565.667A6.963 6.963 0 0 0 14.982 8.5h-2.49a13.36 13.36 0 0 1-.437 3.008zM14.982 7.5a6.963 6.963 0 0 0-1.362-3.675c-.47.258-.995.482-1.565.667.248.92.4 1.938.437 3.008zM11.27 2.461c.177.334.339.694.482 1.078a8.368 8.368 0 0 0 1.196-.49 7.01 7.01 0 0 0-2.275-1.52c.218.283.418.597.597.932zm-.488 1.343a7.765 7.765 0 0 0-.395-.872C9.835 1.897 9.17 1.282 8.5 1.077V4.09c.81-.03 1.577-.13 2.282-.287z"/>
+            </svg>
+            <div>
+                <h3>HAF</h3>
+                <p>Humanitarian AID Foundation</p>
+                <p id="location"></p>
+            </div>
+        </div>
+    </div>
+    <div id="bottom-sec"></div>
+    <div id="bottom">
+        <div style="display: flex; place-items: center;">
+            <button class="btn" onclick="home()">
+                <i class="bi bi-house"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                </svg>
+            </button>
+            <button class="btn" onclick="about()">
+                <i class="bi bi-info-circle"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                </svg>
+            </button>
+            <button class="btn" onclick="HC()">
+                HC
+            </button>
+            <button class="btn" onclick="contact()">
+                <i class="bi bi-person-lines-fill"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+                </svg>
+            </button>
+            <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <i class="bi bi-list"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Services</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <b>Emergency help</b>
+            <p>We will ambulance nearby you by your country ambulance number. For that you should select your country</p>
+            <select class="form-select" aria-label="Default select example" id='country'>
+                <option selected>Select your country</option>
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Albania">Albania</option>
+                <option value="Algeria">Algeria</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Angola">Angola</option>
+                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Armenia">Armenia</option>
+                <option value="Australia">Australia</option>
+                <option value="Austria">Austria</option>
+                <option value="Azerbaijan">Azerbaijan</option>
+                <option value="Bahamas">Bahamas</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Barbados">Barbados</option>
+                <option value="Belarus">Belarus</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Belize">Belize</option>
+                <option value="Benin">Benin</option>
+                <option value="Bhutan">Bhutan</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                <option value="Botswana">Botswana</option>
+                <option value="Brazil">Brazil</option>
+                <option value="Brunei">Brunei</option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="Burkina Faso">Burkina Faso</option>
+                <option value="Burundi">Burundi</option>
+                <option value="Cabo Verde">Cabo Verde</option>
+                <option value="Cambodia">Cambodia</option>
+                <option value="Cameroon">Cameroon</option>
+                <option value="Canada">Canada</option>
+                <option value="Central African Republic">Central African Republic</option>
+                <option value="Chad">Chad</option>
+                <option value="Chile">Chile</option>
+                <option value="China">China</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Comoros">Comoros</option>
+                <option value="Congo">Congo</option>
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Croatia">Croatia</option>
+                <option value="Cuba">Cuba</option>
+                <option value="Cyprus">Cyprus</option>
+                <option value="Czechia">Czechia</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Djibouti">Djibouti</option>
+                <option value="Dominica">Dominica</option>
+                <option value="Dominican Republic">Dominican Republic</option>
+                <option value="East Timor (Timor-Leste)">East Timor (Timor-Leste)</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="Egypt">Egypt</option>
+                <option value="El Salvador">El Salvador</option>
+                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                <option value="Eritrea">Eritrea</option>
+                <option value="Estonia">Estonia</option>
+                <option value="Eswatini">Eswatini</option>
+                <option value="Ethiopia">Ethiopia</option>
+                <option value="Fiji">Fiji</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="Gabon">Gabon</option>
+                <option value="Gambia">Gambia</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Germany">Germany</option>
+                <option value="Ghana">Ghana</option>
+                <option value="Greece">Greece</option>
+                <option value="Grenada">Grenada</option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="Guinea">Guinea</option>
+                <option value="Guinea-Bissau">Guinea-Bissau</option>
+                <option value="Guyana">Guyana</option>
+                <option value="Haiti">Haiti</option>
+                <option value="Honduras">Honduras</option>
+                <option value="Hungary">Hungary</option>
+                <option value="Iceland">Iceland</option>
+                <option value="India">India</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Iran">Iran</option>
+                <option value="Iraq">Iraq</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Israel">Israel</option>
+                <option value="Italy">Italy</option>
+                <option value="Jamaica">Jamaica</option>
+                <option value="Japan">Japan</option>
+                <option value="Jordan">Jordan</option>
+                <option value="Kazakhstan">Kazakhstan</option>
+                <option value="Kenya">Kenya</option>
+                <option value="Kiribati">Kiribati</option>
+                <option value="Korea, North">Korea, North</option>
+                <option value="Korea, South">Korea, South</option>
+                <option value="Kosovo">Kosovo</option>
+                <option value="Kuwait">Kuwait</option>
+                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                <option value="Laos">Laos</option>
+                <option value="Latvia">Latvia</option>
+                <option value="Lebanon">Lebanon</option>
+                <option value="Lesotho">Lesotho</option>
+                <option value="Liberia">Liberia</option>
+                <option value="Libya">Libya</option>
+                <option value="Liechtenstein">Liechtenstein</option>
+                <option value="Lithuania">Lithuania</option>
+                <option value="Luxembourg">Luxembourg</option>
+                <option value="Madagascar">Madagascar</option>
+                <option value="Malawi">Malawi</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Maldives">Maldives</option>
+                <option value="Mali">Mali</option>
+                <option value="Malta">Malta</option>
+                <option value="Marshall Islands">Marshall Islands</option>
+                <option value="Mauritania">Mauritania</option>
+                <option value="Mauritius">Mauritius</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Micronesia">Micronesia</option>
+                <option value="Moldova">Moldova</option>
+                <option value="Monaco">Monaco</option>
+                <option value="Mongolia">Mongolia</option>
+                <option value="Montenegro">Montenegro</option>
+                <option value="Morocco">Morocco</option>
+                <option value="Mozambique">Mozambique</option>
+                <option value="Myanmar (Burma)">Myanmar (Burma)</option>
+                <option value="Namibia">Namibia</option>
+                <option value="Nauru">Nauru</option>
+                <option value="Nepal">Nepal</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Nicaragua">Nicaragua</option>
+                <option value="Niger">Niger</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="North Macedonia (Macedonia)">North Macedonia (Macedonia)</option>
+                <option value="Norway">Norway</option>
+                <option value="Oman">Oman</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Palau">Palau</option>
+                <option value="Panama">Panama</option>
+                <option value="Papua New Guinea">Papua New Guinea</option>
+                <option value="Paraguay">Paraguay</option>
+                <option value="Peru">Peru</option>
+                <option value="Philippines">Philippines</option>
+                <option value="Poland">Poland</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Romania">Romania</option>
+                <option value="Russia">Russia</option>
+                <option value="Rwanda">Rwanda</option>
+                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                <option value="Saint Lucia">Saint Lucia</option>
+                <option value="Saint Vincent and the Grenadines">Saint Vincent and the Grenadines</option>
+                <option value="Samoa">Samoa</option>
+                <option value="San Marino">San Marino</option>
+                <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="Senegal">Senegal</option>
+                <option value="Serbia">Serbia</option>
+                <option value="Seychelles">Seychelles</option>
+                <option value="Sierra Leone">Sierra Leone</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Slovakia">Slovakia</option>
+                <option value="Slovenia">Slovenia</option>
+                <option value="Solomon Islands">Solomon Islands</option>
+                <option value="Somalia">Somalia</option>
+                <option value="South Africa">South Africa</option>
+                <option value="South Sudan">South Sudan</option>
+                <option value="Spain">Spain</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="Sudan">Sudan</option>
+                <option value="Suriname">Suriname</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Syria">Syria</option>
+                <option value="Taiwan">Taiwan</option>
+                <option value="Tajikistan">Tajikistan</option>
+                <option value="Tanzania">Tanzania</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Togo">Togo</option>
+                <option value="Tonga">Tonga</option>
+                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                <option value="Tunisia">Tunisia</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Turkmenistan">Turkmenistan</option>
+                <option value="Tuvalu">Tuvalu</option>
+                <option value="Uganda">Uganda</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States">United States</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Uzbekistan">Uzbekistan</option>
+                <option value="Vanuatu">Vanuatu</option>
+                <option value="Vatican City">Vatican City</option>
+                <option value="Venezuela">Venezuela</option>
+                <option value="Vietnam">Vietnam</option>
+                <option value="Yemen">Yemen</option>
+                <option value="Zambia">Zambia</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+            </select>
+            <a id='caller_link' class='btn btn-filled'>Call Ambulance</a>
+            <br>
+            <br>
+            <p>You can share your location through whatsapp. This location may not be accurate.</p>
+            <button class="btn btn-filled" onclick="Sharelocation()">Share location</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+  <script>
+    lat = '';
+    lon = '';
+    lastseen = ''
+    user = localStorage.getItem('user');
+    user++;
+    health = localStorage.getItem('health');
+    data = {
+        labels: ['Fit', 'Disease', 'Injury'],
+        datasets: [{
+            data: [100, 0, 0],
+            backgroundColor: ['green', 'blue', 'red'],
+            hoverBackgroundColor: ['lightgreen', 'cyan', 'orange']
+        }]
+    };
+    var newValues = [localStorage.getItem('fit'), localStorage.getItem('disease'), localStorage.getItem('injury')];
+    data.datasets[0].data = newValues;
+
+    localStorage.setItem('user', user)
+    if (localStorage.getItem == ''){
+        localStorage.setItem('user', user);
+    }
+    function account(){
+        name = ''
+        if (localStorage.getItem('name') != ''){
+            if (localStorage.getItem('name') != null){
+                name = ', '+localStorage.getItem('name');
+            }
+        }
+        document.getElementById('main').innerHTML=`
+        <br>
+        <div style='display:grid; place-items:center;'>
+            <i class="bi bi-person-circle"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+            </svg>
+            <h3>Welcome${name}</h3>
+        </div>
+        <b>1. Check your health report</b>
+        <p>Your health report will be shown in a Pie chart</p>
+        <button class='btn btn-primary' onclick='home()'>Check</button>
+        <br>
+        <b>2. Update health Checkup</b>
+        <p>To update health checkup you will need to fill a form to create a Pie Chart of your health report</p>
+        <button class='btn btn-primary' onclick='health_form()'>Update</button>
+        `;
+    }
+    function updatelastseen(){
+        lastseen = Date();
+        setTimeout(100, updatelastseen);
+    }
+    updatelastseen();
+    function home(){
+        document.getElementById('main').innerHTML=`
+            <h3>Health Report</h3>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <canvas id="myPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button class='btn btn-filled' onclick='health_form()'>Update health report</button>
+            <br>
+            <h3>Need any help?</h3>
+            <b>1. On diseases</b>
+            <p>For help on diseases click any link given below</p>
+            <br>
+            <a href='https://www.who.int/' class='btn btn-filled'>WHO</a>
+            <a href='https://www.cdc.gov/' class='btn btn-filled'>CDC</a>
+            <a href='https://www.mayoclinic.org/' class='btn btn-filled'>Mayo Clinic</a>
+            <a href='https://www.nih.gov/' class='btn btn-filled'>NIH</a>
+            <a href='https://medlineplus.gov/' class='btn btn-filled'>MedlinePlus</a>
+            <br>
+            <br>
+            <b>2. Any First AID help</b>
+            <p>For first aid help we did suggest a video to know how to use first aid kit</p>
+            <a class='btn btn-filled' href='https://www.youtube.com/watch?v=8assGpZvwG4&pp=ygULOGFzc0dwWnZ3RzQ%3D' class='btn'>Click here to watch</a>
+            <br>
+        `;
+        var ctx = document.getElementById("myPieChart").getContext('2d');
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: data
+        });
+    }
+    function about(){
+        document.getElementById('main').innerHTML=`
+            <h3>Introducing</h3>
+            <p>The Humanitarian Aid Foundation (HAF) App is a powerful and user-friendly tool designed to provide immediate assistance and essential information during emergencies. With a mission to make first aid accessible to everyone, HAF has developed an app that empowers users to respond effectively in critical situations.</p>
+            <br>
+            <h3>Key Features:</h3>
+            <b>1. Emergency Help:</b>
+            <p>Quickly access emergency services with the touch of a button. The app facilitates the process of calling an ambulance to your location, ensuring swift and efficient response times during critical moments.</p>
+            <b>2. Geolocation Services:</b>
+            <p>The app utilizes geolocation services to determine the user's current location. This feature is particularly beneficial during emergencies, providing accurate coordinates for faster response times from emergency services.</p>
+            <b>3. Dynamic Content:</b>
+            <p>Stay informed with dynamic content that adapts to your needs. From step-by-step first aid tutorials to real-time updates on local emergency services, the app ensures that users have access to the latest and most relevant information.</p>
+            <b>4. Responsive Design:</b>
+            <p>The app is designed with responsiveness in mind, ensuring a seamless user experience across various devices. Whether you're using a smartphone, tablet, or computer, HAF is accessible whenever and wherever you need it.</p>
+            <b>5. User-Friendly Interface:</b>
+            <p>The app features an intuitive and user-friendly interface, making it easy for individuals of all ages to navigate and access critical information during emergencies.</p>
+        `;
+    }
+    const ambulanceNumbers = {
+        Afghanistan: '102',
+        Albania: '127',
+        Algeria: '14',
+        Andorra: '112',
+        Angola: '112',
+        'Antigua and Barbuda': '911',
+        Argentina: '107',
+        Armenia: '103',
+        Australia: '000',
+        Austria: '144',
+        Azerbaijan: '103',
+        Bahamas: '911',
+        Bahrain: '999',
+        Bangladesh: '199',
+        Barbados: '511',
+        Belarus: '103',
+        Belgium: '112',
+        Belize: '911',
+        Benin: '166',
+        Bhutan: '112',
+        Bolivia: '118',
+        'Bosnia and Herzegovina': '124',
+        Botswana: '911',
+        Brazil: '192',
+        Brunei: '991',
+        Bulgaria: '112',
+        'Burkina Faso': '17',
+        Burundi: '112',
+        'Cabo Verde': '1300',
+        Cambodia: '119',
+        Cameroon: '112',
+        Canada: '911',
+        'Central African Republic': '117',
+        Chad: '2251',
+        Chile: '131',
+        China: '120',
+        Colombia: '123',
+        Comoros: '7730366',
+        Congo: '112',
+        'Costa Rica': '911',
+        Croatia: '112',
+        Cuba: '104',
+        Cyprus: '112',
+        Czechia: '155',
+        Denmark: '112',
+        Djibouti: '351351',
+        Dominica: '999',
+        'Dominican Republic': '911',
+        'East Timor (Timor-Leste)': '112',
+        Ecuador: '911',
+        Egypt: '123',
+        'El Salvador': '132',
+        'Equatorial Guinea': '115',
+        Eritrea: '116',
+        Estonia: '112',
+        Eswatini: '933',
+        Ethiopia: '907',
+        Fiji: '919',
+        Finland: '112',
+        France: '15',
+        Gabon: '1300',
+        Gambia: '117',
+        Georgia: '112',
+        Germany: '112',
+        Ghana: '112',
+        Greece: '166',
+        Grenada: '911',
+        Guatemala: '122',
+        Guinea: '112',
+        'Guinea-Bissau': '119',
+        Guyana: '913',
+        Haiti: '118',
+        Honduras: '911',
+        Hungary: '104',
+        Iceland: '112',
+        India: '108',
+        Indonesia: '118',
+        Iran: '115',
+        Iraq: '130',
+        Ireland: '112',
+        Israel: '101',
+        Italy: '118',
+        Jamaica: '110',
+        Japan: '119',
+        Jordan: '911',
+        Kazakhstan: '103',
+        Kenya: '112',
+        Kiribati: '122',
+        'Korea, North': '119',
+        'Korea, South': '119',
+        Kosovo: '192',
+        Kuwait: '112',
+        Kyrgyzstan: '103',
+        Laos: '195',
+        Latvia: '113',
+        Lebanon: '140',
+        Lesotho: '1212',
+        Liberia: '911',
+        Libya: '193',
+        Liechtenstein: '112',
+        Lithuania: '112',
+        Luxembourg: '112',
+        Madagascar: '124',
+        Malawi: '998',
+        Malaysia: '999',
+        Maldives: '102',
+        Mali: '118',
+        Malta: '112',
+        'Marshall Islands': '625-8666',
+        Mauritania: '117',
+        Mauritius: '114',
+        Mexico: '911',
+        Micronesia: '320-2221',
+        Moldova: '903',
+        Monaco: '112',
+        Mongolia: '103',
+        Montenegro: '122',
+        Morocco: '150',
+        Mozambique: '117',
+        'Myanmar (Burma)': '199',
+        Namibia: '211',
+        Nauru: '110',
+        Nepal: '102',
+        Netherlands: '112',
+        'New Zealand': '111',
+        Nicaragua: '128',
+        Niger: '15',
+        Nigeria: '112',
+        'North Macedonia (Macedonia)': '194',
+        Norway: '113',
+        Oman: '999',
+        Pakistan: '1122',
+        Palau: '488-3999',
+        Panama: '911',
+        'Papua New Guinea': '111',
+        Paraguay: '141',
+        Peru: '106',
+        Philippines: '911',
+        Poland: '112',
+        Portugal: '112',
+        Qatar: '999',
+        Romania: '112',
+        Russia: '103',
+        Rwanda: '112',
+        'Saint Kitts and Nevis': '911',
+        'Saint Lucia': '911',
+        'Saint Vincent and the Grenadines': '999',
+        Samoa: '995',
+        'San Marino': '118',
+        'Sao Tome and Principe': '112',
+        'Saudi Arabia': '997',
+        Senegal: '15',
+        Serbia: '194',
+        Seychelles: '151',
+        'Sierra Leone': '999',
+        Singapore: '995',
+        Slovakia: '155',
+        Slovenia: '112',
+        'Solomon Islands': '911',
+        Somalia: '555',
+        'South Africa': '10177',
+        'South Sudan': '666',
+        Spain: '112',
+        'Sri Lanka': '1990',
+        Sudan: '999',
+        Suriname: '113',
+        Sweden: '112',
+        Switzerland: '144',
+        Syria: '110',
+        Taiwan: '119',
+        Tajikistan: '112',
+        Tanzania: '112',
+        Thailand: '1669',
+        Togo: '117',
+        Tonga: '911',
+        'Trinidad and Tobago': '990',
+        Tunisia: '190',
+        Turkey: '112',
+        Turkmenistan: '03',
+        Tuvalu: '911',
+        Uganda: '112',
+        Ukraine: '103',
+        'United Arab Emirates': '998',
+        'United Kingdom': '999',
+        'United States': '911',
+        Uruguay: '911',
+        Uzbekistan: '103',
+        Vanuatu: '112',
+        'Vatican City': '113',
+        Venezuela: '171',
+        Vietnam: '115',
+        Yemen: '191',
+        Zambia: '999',
+        Zimbabwe: '994',
+    };
+    const countrySelect = document.getElementById('country');
+    countrySelect.addEventListener('change', function () {
+        const selectedCountry = countrySelect.value;
+        const callerLink = document.getElementById('caller_link');
+        callerLink.href = `tel:${ambulanceNumbers[selectedCountry]}`;
+    });
+    function contact(){
+        document.getElementById('main').innerHTML=`
+            <iframe src='https://haf-contact.anvil.app' width='100%' height='100%' style='position: absolute; top:-10%;'>
+        `;
+    }
+    function notify(){
+        document.getElementById('main').innerHTML=`
+            <br>
+            <div style='display:grid; place-items:center;'>
+                <i class="bi bi-bell"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+                </svg>
+                <h3>Notification</h3>
+            </div>
+            <button class='btn btn-filled' onclick='window.location.reload()'>Welcome to HAF</button>
+            <button class='btn btn-filled' >Update your health checkup</button>
+            <button class='btn btn-filled' onclick='home()'>Check your health on Pie Chart</button>
+            <button class='btn btn-filled' data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Do you need Ambulance?</button>
+            <button class='btn btn-filled' onclick='about()'>About us</button>
+        `;
+    }
+    function locateme(){
+        if (navigator.geolocation) {
+            try{
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } catch(e){
+                document.getElementById('location').innerHTML='GPS signal lost';
+            }
+        } else {
+            document.getElementById('location').innerHTML='Error: Location not supported';
+        }
+    }
+    function showPosition(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        document.getElementById('location').innerHTML='N'+latitude+', E'+longitude;
+        lat=latitude;
+        lon=longitude;
+    }
+    Notification.requestPermission().then(perm => {
+        if(perm === 'granted'){
+            const notification = new Notification(
+                'Welcome to HAF', {
+                    body: 'Humanitarian AID Foundation | HAF',
+                    icon: 'https://icons.getbootstrap.com/assets/icons/globe2.svg'
+                }
+            );
+            notification.onclick = function (){
+                about();
+            }
+        }
+    });
+    function health_form(){
+        document.getElementById('main').innerHTML=`
+        <div class="container form-container">
+            <h2 class="mt-4 mb-4">Health Information Form</h2>
+            <div id="healthForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" class="form-control" id="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" class="form-control" id="dob" required>
+                </div>
+                <div class="form-group">
+                    <label>Have you been diagnosed with any chronic diseases?</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="chronicDiseases" value="yes" required>
+                        <label class="form-check-label">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="chronicDiseases" value="no" required>
+                        <label class="form-check-label">No</label>
+                    </div>
+                </div>
+                <div class='form-group'>
+                    <label for="injury">Are you injured?</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="injury" value="yes" required>
+                        <label class="form-check-label">Yes</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" name="injury" value="no" required>
+                        <label class="form-check-label">No</label>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="calculatePercentages()">Submit</button>
+            </div>
+        </div>
+        `;
+    }
+    function calculatePercentages() {
+        // Get values from the form
+        const fullName = document.getElementById('fullName').value;
+        const dob = document.getElementById('dob').value;
+        const chronicDiseases = document.querySelector('input[name="chronicDiseases"]:checked').value;
+        const injury = document.querySelector('input[name="injury"]:checked').value;
+
+        // Simulated scoring system (you can replace this with your logic)
+        const fitnessScore = chronicDiseases === 'yes' ? 60 : 90;
+        const diseaseScore = chronicDiseases === 'yes' ? 30 : 0;
+        const injuryScore = injury === 'yes' ? 10 : 0;
+
+        // Display the calculated scores
+        console.log("Full Name:", fullName);
+        console.log("Date of Birth:", dob);
+        console.log("Chronic Diseases:", chronicDiseases);
+        console.log("Injury:", injury);
+        console.log("Fitness Score:", fitnessScore);
+        console.log("Disease Score:", diseaseScore);
+        console.log("Injury Score:", injuryScore);
+
+        localStorage.setItem('name', fullName);
+        localStorage.setItem('fit', fitnessScore);
+        localStorage.setItem('disease', diseaseScore);
+        localStorage.setItem('injury', injuryScore); 
+        setTimeout(submited, 1500); 
+    }
+    function submited(){
+        window.location.reload();
+        home();
+    }
+    function HC(){
+        document.getElementById('main').innerHTML=`
+            <iframe src='https://yash12007.github.io/Health_Calculator/' height='100%' weight='100%'>
+        `
+    }
+    function Sharelocation(){
+        window.open(`https://wa.me/?text=Follow%20my%20live%20location:%20https://maps.google.com/maps?q=${lat},${lon}`, '_blank');
+    }
+    locateme();
+  </script>
+</html>
