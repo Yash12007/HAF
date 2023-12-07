@@ -6,10 +6,6 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-@app.route('/doctor')
-def doctor():
-    return render_template('doctor.html')
-
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
     if (request.method == 'POST'):
